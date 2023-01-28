@@ -1,0 +1,67 @@
+/**********************************************************
+Program: 	NumberSystemConverter
+Author:		Agustin Espinoza
+Date:		1/27/2023
+**********************************************************/
+
+// declare variables
+// boolean var for prompt display
+boolean bDisplayPrompt;
+
+// string input var
+String strInput;
+String binInput;
+String octInput;
+String hexInput;
+
+void setup()
+{
+  // turn prompt display flag on
+  bDisplayPrompt = true;
+  
+  // set up serial communications
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  if (bDisplayPrompt)
+  {
+    // display the user prompt
+    Serial.println("\nPlease enter a decimal number to be converted.");
+    
+    //turn prompt display flag off
+    bDisplayPrompt = false;
+  }
+  if (Serial.available() > 0)
+  {
+    // read user decimal input
+    strInput = Serial.readString();
+    
+    // print user decimal input
+    Serial.print("The decimal-based value you entered is: ");  
+    Serial.println(strInput);
+    
+    // convert string input to int
+    int decInput = strInput.toInt();  
+    
+    // convert and print binary conversion of user decimal input
+    Serial.print("The binary-based value you entered is: ");  
+    binInput = String(decInput, BIN);     
+    Serial.print(binInput);
+    
+    // convert and print octal conversion of user decimal input    
+    Serial.print("\nThe octal-based value you entered is: ");
+    octInput = String(decInput, OCT);
+    Serial.print(octInput);    
+    
+    // convert and print hexadecimal conversion of user decimal input    
+    Serial.print("\nThe hexadecimal-based value you entered is: ");  
+    hexInput = String(decInput, HEX);
+    Serial.print(hexInput);
+
+    //turn prompt display flag off
+    bDisplayPrompt = true;
+    
+  } // serial read / write
+}
